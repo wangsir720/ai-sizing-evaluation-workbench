@@ -6,7 +6,8 @@ import os
 from src import cli
 from src.scorecard import score_prd
 
-SCENARIOS = ["customer_service", "enterprise_knowledge_qa", "report_generation"]
+SCENARIOS = ["customer_service", "device_aftersales_qa", "device_ai_assistant",
+             "enterprise_knowledge_qa", "report_generation"]
 
 
 def test_all_scenarios_generate_all_artifacts():

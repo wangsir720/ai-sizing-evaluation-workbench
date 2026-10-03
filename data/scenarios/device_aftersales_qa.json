@@ -1,0 +1,25 @@
+{
+  "scenario_id": "device_aftersales_qa",
+  "name": "智能设备售后知识问答",
+  "industry": "智能设备 / 消费电子",
+  "route_intent": "保修、意外损坏、维修与换机政策分散在多份售后手册中，客服与用户重复查询同一批规则",
+  "data_profile": {
+    "corpus_docs": 2400,
+    "doc_avg_tokens": 1500,
+    "update_frequency": "weekly",
+    "requires_fact_accuracy": true,
+    "requires_cross_domain_reasoning": false,
+    "answer_style": "short_factual"
+  },
+  "traffic": {
+    "monthly_calls": 260000,
+    "input_tokens_per_call": 160,
+    "output_tokens_per_call": 130,
+    "peak_concurrency": 60
+  },
+  "constraints": {
+    "data_residency": "境内",
+    "budget_sensitivity": "high"
+  },
+  "assumption_refs": ["A-01", "A-02", "A-05", "A-06"]
+}

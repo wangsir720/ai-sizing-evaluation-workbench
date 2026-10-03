@@ -78,5 +78,93 @@
     "gold_doc_ids": ["doc-3001"],
     "gold_answer": null,
     "should_abstain": false
+  },
+  {
+    "case_id": "DA-001",
+    "scenario_id": "device_aftersales_qa",
+    "question": "整机保修期是多长时间",
+    "gold_doc_ids": ["doc-DA01"],
+    "gold_answer": "整机保修期为自签收之日起 24 个月，主要部件同样 24 个月，电源适配器与数据线为 12 个月。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "DA-002",
+    "scenario_id": "device_aftersales_qa",
+    "question": "设备进液算保修范围吗 怎么判定进液",
+    "gold_doc_ids": ["doc-DA02"],
+    "gold_answer": "属于意外损坏，不在整机保修范围，需付费维修；进液以设备内部进水指示标签变色作为判定依据。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "DA-003",
+    "scenario_id": "device_aftersales_qa",
+    "question": "寄修期间可以申请备用机吗",
+    "gold_doc_ids": ["doc-DA04"],
+    "gold_answer": "设备预计送修超过三个工作日可申请备用机，数量以服务网点库存为准，需签署借用单并按时归还。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "DA-004",
+    "scenario_id": "device_aftersales_qa",
+    "question": "延长保修能延长多久 怎么购买",
+    "gold_doc_ids": ["doc-DA05"],
+    "gold_answer": "可在整机保修期内购买，分为延长 12 个月与 24 个月两档，仅覆盖非人为损坏的维修。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "DA-005",
+    "scenario_id": "device_aftersales_qa",
+    "question": "寄修要多久 维修进度怎么查询",
+    "gold_doc_ids": ["doc-DA06"],
+    "gold_answer": "寄修检测与报价 1 个工作日、维修 2 至 5 个工作日、回寄 2 至 3 个工作日，可用服务单号在服务台查询进度。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "DA-006",
+    "scenario_id": "device_aftersales_qa",
+    "question": "竞品厂商的保修政策是怎么规定的",
+    "gold_doc_ids": [],
+    "gold_answer": null,
+    "should_abstain": true
+  },
+  {
+    "case_id": "AS-001",
+    "scenario_id": "device_ai_assistant",
+    "question": "摄像头打不开 怎么检查权限",
+    "gold_doc_ids": ["doc-AS01"],
+    "gold_answer": "先在隐私设置中检查该应用的摄像头权限，再排查应用独占、驱动异常与物理遮挡。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "AS-002",
+    "scenario_id": "device_ai_assistant",
+    "question": "系统更新失败怎么处理 驱动要不要重装",
+    "gold_doc_ids": ["doc-AS02"],
+    "gold_answer": "多为更新包不完整、磁盘空间不足或中途断电；驱动建议用厂商提供的驱动，异常时可在设备管理器回滚。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "AS-003",
+    "scenario_id": "device_ai_assistant",
+    "question": "连不上公司代理 网络应该怎么设置",
+    "gold_doc_ids": ["doc-AS03"],
+    "gold_answer": "依次检查代理地址端口、认证信息、例外地址列表、根证书与浏览器独立代理设置。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "AS-004",
+    "scenario_id": "device_ai_assistant",
+    "question": "电池续航变短 怎么看电池健康",
+    "gold_doc_ids": ["doc-AS04"],
+    "gold_answer": "查看电池健康报告中当前满充容量与设计容量的比值，低于百分之八十通常建议更换电池。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "AS-005",
+    "scenario_id": "device_ai_assistant",
+    "question": "外接显示器没有信号 投屏怎么设置",
+    "gold_doc_ids": ["doc-AS06"],
+    "gold_answer": "先换线缆与接口，投屏需与接收端同网络，再检查显示模式与分辨率刷新率是否超出支持范围。",
+    "should_abstain": false
   }
 ]

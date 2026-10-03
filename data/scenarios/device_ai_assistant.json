@@ -1,0 +1,25 @@
+{
+  "scenario_id": "device_ai_assistant",
+  "name": "设备端 AI 助手（本地帮助与设置引导）",
+  "industry": "智能设备 / 端侧 AI",
+  "route_intent": "用户在设备本地提问「某个功能为什么用不了」，答案取决于多个设置项之间的依赖关系，且要求离线可用、事实准确",
+  "data_profile": {
+    "corpus_docs": 900,
+    "doc_avg_tokens": 1200,
+    "update_frequency": "weekly",
+    "requires_fact_accuracy": true,
+    "requires_cross_domain_reasoning": true,
+    "answer_style": "short_factual"
+  },
+  "traffic": {
+    "monthly_calls": 90000,
+    "input_tokens_per_call": 220,
+    "output_tokens_per_call": 180,
+    "peak_concurrency": 25
+  },
+  "constraints": {
+    "data_residency": "境内",
+    "budget_sensitivity": "medium"
+  },
+  "assumption_refs": ["A-01", "A-02", "A-05", "A-06"]
+}

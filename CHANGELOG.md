@@ -2,6 +2,28 @@
 
 本文件记录本项目实际发生的变更。只写真实做过的事，不补历史。
 
+## [0.2.0] — 2026-10-03
+
+新增两个业务场景，用来验证同一套判定规则在「设备售后」与「端侧助手」两类
+新数据特征下会得出不同结论。
+
+### 新增 · 场景与语料
+- `data/scenarios/device_aftersales_qa.json` + `data/corpus/device_aftersales_qa_corpus.json`
+  —— 智能设备售后知识问答（保修期 / 意外损坏界定 / 寄修与上门 / 备用机与换机 / 延保 / 维修时效），
+  2400 篇；答案依赖私有售后手册且要求事实准确 → 判定 **RAG / high**
+- `data/scenarios/device_ai_assistant.json` + `data/corpus/device_ai_assistant_corpus.json`
+  —— 设备端 AI 助手（本地帮助与设置引导），900 篇；同时命中 RAG 规则与图谱规则，
+  两条候选竞争 → 判定 **知识图谱 / medium**
+- `data/benchmarks/qa_eval_samples.json` —— 追加 11 条标注样本（含 1 条应拒答），场景数 3 → 5
+
+### 变更
+- 端到端测试覆盖的场景清单由 3 个扩展到 5 个（新增两场景纳入产物 / 免责声明 / 敏感字段检查）
+
+### 实测
+- `python -m pytest -q` → 55 passed
+- `python -m src.cli --all --selfcheck` → 5 个场景全部生成，PRD 质量自评 98 / 98
+- 新场景 Recall@5 = 1.0000（5 / 5），与既有场景同口径
+
 ## [0.1.0] — 2026-10-03
 
 首个可用版本：技术路线判定 + 能力测算 + 效果评估 + 三件套装配 + PRD 质量自评。
