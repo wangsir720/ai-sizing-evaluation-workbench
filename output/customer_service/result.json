@@ -1,0 +1,365 @@
+{
+  "scenario": {
+    "scenario_id": "customer_service",
+    "name": "电商客服知识问答",
+    "industry": "零售",
+    "route_intent": "高频重复问答，答案分散在政策文档中",
+    "data_profile": {
+      "corpus_docs": 1200,
+      "doc_avg_tokens": 1800,
+      "update_frequency": "weekly",
+      "requires_fact_accuracy": true,
+      "requires_cross_domain_reasoning": false,
+      "answer_style": "short_factual"
+    },
+    "traffic": {
+      "monthly_calls": 180000,
+      "input_tokens_per_call": 150,
+      "output_tokens_per_call": 120,
+      "peak_concurrency": 40
+    },
+    "constraints": {
+      "data_residency": "境内",
+      "budget_sensitivity": "high"
+    },
+    "assumption_refs": [
+      "A-01",
+      "A-02",
+      "A-05",
+      "A-06"
+    ]
+  },
+  "decision": {
+    "scenario_id": "customer_service",
+    "recommended_route": "rag",
+    "route_label": "RAG（检索增强生成）",
+    "confidence": "high",
+    "confidence_basis": "仅一条路线满足全部条件，无竞争候选",
+    "why": "语料 1200 篇且要求事实准确 —— 答案依赖企业私有文档，模型参数中不含这些知识，只能靠检索注入",
+    "evidence": [
+      {
+        "route": "rag",
+        "rule": "R-01",
+        "why": "语料 1200 篇且要求事实准确 —— 答案依赖企业私有文档，模型参数中不含这些知识，只能靠检索注入",
+        "assumption_refs": [
+          "A-02"
+        ]
+      }
+    ],
+    "rejected": [
+      {
+        "route": "knowledge_graph",
+        "label": "知识图谱",
+        "why": "不要求跨域推理，图谱构建与维护成本高于收益"
+      },
+      {
+        "route": "finetune",
+        "label": "模型微调",
+        "why": "瓶颈在知识注入而非输出稳定性，提示词 + 检索即可解决"
+      },
+      {
+        "route": "prompt_only",
+        "label": "纯提示词",
+        "why": "语料 1200 篇且要求事实准确，纯提示词无法保证答案落在企业文档范围内"
+      }
+    ],
+    "tradeoff_note": "推荐 RAG（检索增强生成）；已排除 知识图谱、模型微调、纯提示词。选型不是选最好的，是选**当前约束下代价最小**的 —— 换约束，结论可能反转。"
+  },
+  "sizing": {
+    "scenario_id": "customer_service",
+    "scale": {
+      "total_tokens": 2160000,
+      "chunk_count": 4822,
+      "vector_dim": 1024,
+      "vector_bytes": 19750912,
+      "index_bytes": 25676185,
+      "total_gib": 0.042,
+      "trace": "总 token = 文档数 1200 × 平均 1800 token = 2160000；切分步长 = 512 − 64 重叠 = 448；chunk 数 = 4822；向量 = 4822 × 1024 维 × 4 Byte = 0.02 GiB；含 1.3 索引开销后 = 0.04 GiB",
+      "assumption_refs": [
+        "A-01"
+      ]
+    },
+    "token_budget": {
+      "input_tokens_per_call": 150.0,
+      "retrieved_tokens_per_call": 512,
+      "billed_input_per_call": 662.0,
+      "output_tokens_per_call": 120.0,
+      "output_is_assumption": false,
+      "monthly_input_tokens": 119160000,
+      "monthly_output_tokens": 21600000,
+      "trace": "每次调用输入 = 问题 150 token + 检索命中 512 token（A-01 切分粒度）= 662 token；月输入 = 662 × 180000 次 = 119160000 token；月输出 = 120 × 180000 次 = 21600000 token",
+      "assumption_refs": [
+        "A-01",
+        "A-05",
+        "A-06"
+      ]
+    },
+    "model_costs": [
+      {
+        "model_id": "deepseek-v4-flash",
+        "vendor": "DeepSeek",
+        "context_tokens": 1000000,
+        "blended_input_usd_per_mtok": 0.195,
+        "blended_output_usd_per_mtok": 0.78,
+        "monthly_cost_usd": 40.08,
+        "annual_cost_usd": 481.01,
+        "input_price_trace": "谷时价 0.1500 × (1 + 峰时占比 30% × (倍率 2.0 − 1)) = 0.1950 美元/百万 token",
+        "output_price_trace": "谷时价 0.6000 × (1 + 峰时占比 30% × (倍率 2.0 − 1)) = 0.7800 美元/百万 token",
+        "source_id": "M1",
+        "credibility": "official",
+        "pricing_note": "日常通用模型；峰时（UTC 01-04/06-10）单价翻倍",
+        "is_cheapest": true,
+        "cost_ratio_vs_cheapest": 1.0
+      },
+      {
+        "model_id": "deepseek-v4-pro",
+        "vendor": "DeepSeek",
+        "context_tokens": 1000000,
+        "blended_input_usd_per_mtok": 0.858,
+        "blended_output_usd_per_mtok": 2.574,
+        "monthly_cost_usd": 157.84,
+        "annual_cost_usd": 1894.05,
+        "input_price_trace": "谷时价 0.6600 × (1 + 峰时占比 30% × (倍率 2.0 − 1)) = 0.8580 美元/百万 token",
+        "output_price_trace": "谷时价 1.9800 × (1 + 峰时占比 30% × (倍率 2.0 − 1)) = 2.5740 美元/百万 token",
+        "source_id": "M1",
+        "credibility": "official",
+        "pricing_note": "旗舰推理与编码模型；峰时单价翻倍",
+        "is_cheapest": false,
+        "cost_ratio_vs_cheapest": 3.94
+      }
+    ],
+    "latency": {
+      "p50_ms": null,
+      "p95_ms": null,
+      "status": "未查到",
+      "reason": "本项目无推理环境，不实测延迟。A-04 已登记延迟口径，接入真实环境后按「检索耗时 + 生成耗时」两段分别测量填入"
+    },
+    "exclusions": [
+      "批量折扣",
+      "长上下文附加费",
+      "免费额度",
+      "企业协议价"
+    ],
+    "scope_note": "成本为公开单价 × 峰谷混合后的离线测算值，非实际账单；不含任何商务折扣。"
+  },
+  "evaluation": {
+    "scenario_id": "customer_service",
+    "top_k": 5,
+    "case_count": 5,
+    "metrics": [
+      {
+        "name": "检索命中率 Recall@5",
+        "definition": "标注答案所在文档的任一 chunk 出现在 top-5 结果中的样本占比",
+        "value": "1.0000",
+        "status": "已计算",
+        "evidence": "4 / 4",
+        "assumption_refs": [
+          "A-03"
+        ]
+      },
+      {
+        "name": "上下文精确率 Precision@5",
+        "definition": "top-5 结果中被标注答案命中的比例",
+        "value": "0.2000",
+        "status": "已计算",
+        "evidence": "有效样本 4 个，命中文档累计 1 个",
+        "assumption_refs": [
+          "A-03"
+        ]
+      },
+      {
+        "name": "拒答率正确率",
+        "definition": "应拒答且实际未召回任何内容的样本占比",
+        "value": "0.0000",
+        "status": "已计算",
+        "evidence": "0 / 1",
+        "assumption_refs": [
+          "A-03"
+        ]
+      },
+      {
+        "name": "答案正确率",
+        "definition": "生成答案与标注答案语义一致的比例",
+        "value": null,
+        "status": "未查到",
+        "evidence": "需人工或标注答案；本项目无生成环节",
+        "assumption_refs": [
+          "A-03"
+        ]
+      },
+      {
+        "name": "响应延迟 P50 / P95",
+        "definition": "检索耗时 + 生成耗时的两段构成",
+        "value": null,
+        "status": "未查到",
+        "evidence": "无推理环境，不实测",
+        "assumption_refs": [
+          "A-04"
+        ]
+      }
+    ],
+    "per_case": [
+      {
+        "case_id": "CS-001",
+        "question": "订单满多少包邮",
+        "retrieved": [
+          "doc-0231#c1",
+          "doc-0512#c1",
+          "doc-0733#c1",
+          "doc-2044#c1",
+          "doc-1102#c1"
+        ],
+        "retrieved_docs": [
+          "doc-0231",
+          "doc-0512",
+          "doc-0733",
+          "doc-1102",
+          "doc-2044"
+        ],
+        "gold_docs": [
+          "doc-0231"
+        ],
+        "overlap": 0,
+        "should_abstain": false,
+        "abstain_ok": null
+      },
+      {
+        "case_id": "CS-002",
+        "question": "七天无理由退货的例外商品有哪些",
+        "retrieved": [
+          "doc-0512#c1",
+          "doc-0231#c1",
+          "doc-2044#c1",
+          "doc-1102#c1",
+          "doc-2071#c1"
+        ],
+        "retrieved_docs": [
+          "doc-0231",
+          "doc-0512",
+          "doc-1102",
+          "doc-2044",
+          "doc-2071"
+        ],
+        "gold_docs": [
+          "doc-0512"
+        ],
+        "overlap": 0,
+        "should_abstain": false,
+        "abstain_ok": null
+      },
+      {
+        "case_id": "CS-003",
+        "question": "你们公司的竞争对手的保修政策是什么",
+        "retrieved": [
+          "doc-1102#c1",
+          "doc-0512#c1",
+          "doc-1187#c1",
+          "doc-2071#c1",
+          "doc-0231#c1"
+        ],
+        "retrieved_docs": [
+          "doc-0231",
+          "doc-0512",
+          "doc-1102",
+          "doc-2044",
+          "doc-2071"
+        ],
+        "gold_docs": [],
+        "overlap": null,
+        "should_abstain": true,
+        "abstain_ok": false
+      },
+      {
+        "case_id": "CS-004",
+        "question": "发票怎么开 多久能到",
+        "retrieved": [
+          "doc-0733#c1",
+          "doc-2044#c1",
+          "doc-1102#c1",
+          "doc-0231#c1",
+          "doc-1187#c1"
+        ],
+        "retrieved_docs": [
+          "doc-0231",
+          "doc-0733",
+          "doc-1102",
+          "doc-1187",
+          "doc-2044"
+        ],
+        "gold_docs": [
+          "doc-0733"
+        ],
+        "overlap": 0,
+        "should_abstain": false,
+        "abstain_ok": null
+      },
+      {
+        "case_id": "CS-005",
+        "question": "偏远地区的运费怎么算",
+        "retrieved": [
+          "doc-0231#c1",
+          "doc-0512#c1",
+          "doc-1102#c1",
+          "doc-0733#c1",
+          "doc-1187#c1"
+        ],
+        "retrieved_docs": [
+          "doc-0231",
+          "doc-0512",
+          "doc-0733",
+          "doc-1102",
+          "doc-1187"
+        ],
+        "gold_docs": [
+          "doc-0231"
+        ],
+        "overlap": 0,
+        "should_abstain": false,
+        "abstain_ok": null
+      }
+    ],
+    "retriever_note": "检索器为确定性 token 重叠实现（src/retriever.py），用于验证评估流程可复现，不代表真实向量检索质量。",
+    "scope_note": "标「未查到」的项一律不填估计值 —— 缺数据比错数据更有用。"
+  },
+  "roadmap": {
+    "scenario_id": "customer_service",
+    "route": "RAG（检索增强生成）",
+    "stages": [
+      {
+        "index": 1,
+        "name": "语料就绪与基线",
+        "duration": "2 周",
+        "goal": "完成语料切分与向量入库，跑通检索链路",
+        "exit_criteria": "Recall@5 可测且有基线数值",
+        "depends_on": "无"
+      },
+      {
+        "index": 2,
+        "name": "效果调优",
+        "duration": "3 周",
+        "goal": "切分粒度、top-k 与重排策略对比，确定最优配置",
+        "exit_criteria": "Recall 相对基线有明确提升，且延迟仍在预算内",
+        "depends_on": "阶段 1"
+      },
+      {
+        "index": 3,
+        "name": "成本优化",
+        "duration": "2 周",
+        "goal": "模型档位与缓存策略对比，压低单位问答成本",
+        "exit_criteria": "同等效果下月度成本下降，且质量指标无显著退化",
+        "depends_on": "阶段 2"
+      },
+      {
+        "index": 4,
+        "name": "灰度上线",
+        "duration": "3 周",
+        "goal": "小流量灰度，收集真实 badcase 回流",
+        "exit_criteria": "灰度期错误率与人工兜底率在阈值内",
+        "depends_on": "阶段 3"
+      }
+    ],
+    "total_duration": "10 周",
+    "milestone_note": "每个阶段设退出标准而非时间目标 —— 效果指标不达标就不进下一阶段。",
+    "scope_note": "阶段划分为通用模板，未包含具体人力安排与预算拆分；真实路线图需按团队规模与预算重排。"
+  }
+}

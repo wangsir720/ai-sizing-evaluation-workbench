@@ -1,0 +1,25 @@
+{
+  "scenario_id": "report_generation",
+  "name": "经营周报与报告生成",
+  "industry": "通用",
+  "route_intent": "结构化输入套模板产出长文，不要求检索外部事实",
+  "data_profile": {
+    "corpus_docs": 150,
+    "doc_avg_tokens": 900,
+    "update_frequency": "daily",
+    "requires_fact_accuracy": false,
+    "requires_cross_domain_reasoning": true,
+    "answer_style": "long_reasoned"
+  },
+  "traffic": {
+    "monthly_calls": 6000,
+    "input_tokens_per_call": 2200,
+    "output_tokens_per_call": 1800,
+    "peak_concurrency": 12
+  },
+  "constraints": {
+    "data_residency": "境内",
+    "budget_sensitivity": "low"
+  },
+  "assumption_refs": ["A-01", "A-05", "A-06"]
+}

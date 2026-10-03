@@ -1,0 +1,3 @@
+﻿model_id,vendor,blended_input_usd_per_mtok,blended_output_usd_per_mtok,monthly_cost_usd,annual_cost_usd,cost_ratio_vs_cheapest,source_id,credibility
+deepseek-v4-flash,DeepSeek,0.195,0.78,11.6,139.16,1.0,M1,official
+deepseek-v4-pro,DeepSeek,0.858,2.574,41.76,501.13,3.6,M1,official

@@ -1,0 +1,25 @@
+{
+  "scenario_id": "customer_service",
+  "name": "电商客服知识问答",
+  "industry": "零售",
+  "route_intent": "高频重复问答，答案分散在政策文档中",
+  "data_profile": {
+    "corpus_docs": 1200,
+    "doc_avg_tokens": 1800,
+    "update_frequency": "weekly",
+    "requires_fact_accuracy": true,
+    "requires_cross_domain_reasoning": false,
+    "answer_style": "short_factual"
+  },
+  "traffic": {
+    "monthly_calls": 180000,
+    "input_tokens_per_call": 150,
+    "output_tokens_per_call": 120,
+    "peak_concurrency": 40
+  },
+  "constraints": {
+    "data_residency": "境内",
+    "budget_sensitivity": "high"
+  },
+  "assumption_refs": ["A-01", "A-02", "A-05", "A-06"]
+}

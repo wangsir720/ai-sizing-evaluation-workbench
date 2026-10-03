@@ -1,0 +1,82 @@
+[
+  {
+    "case_id": "CS-001",
+    "scenario_id": "customer_service",
+    "question": "订单满多少包邮",
+    "gold_doc_ids": ["doc-0231"],
+    "gold_answer": "订单实付满 99 元包邮，未满则收取 8 元运费。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "CS-002",
+    "scenario_id": "customer_service",
+    "question": "七天无理由退货的例外商品有哪些",
+    "gold_doc_ids": ["doc-0512"],
+    "gold_answer": "定制类商品、贴身衣物、已拆封的音像制品与软件、报纸期刊不支持无理由退货。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "CS-003",
+    "scenario_id": "customer_service",
+    "question": "你们公司的竞争对手的保修政策是什么",
+    "gold_doc_ids": [],
+    "gold_answer": null,
+    "should_abstain": true
+  },
+  {
+    "case_id": "CS-004",
+    "scenario_id": "customer_service",
+    "question": "发票怎么开 多久能到",
+    "gold_doc_ids": ["doc-0733"],
+    "gold_answer": "下单时在订单备注勾选电子发票，电子发票开具后 10 分钟内发送至下单邮箱。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "CS-005",
+    "scenario_id": "customer_service",
+    "question": "偏远地区的运费怎么算",
+    "gold_doc_ids": ["doc-0231"],
+    "gold_answer": "偏远地区（新疆、西藏、内蒙古部分区县）不参与包邮活动，统一按 20 元收取运费。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "KQ-001",
+    "scenario_id": "enterprise_knowledge_qa",
+    "question": "出差住宿标准是多少 超过部分怎么报销",
+    "gold_doc_ids": ["doc-1102", "doc-1187"],
+    "gold_answer": "一线城市每晚 600 元，二线 450 元，其他 350 元；超标部分需部门负责人书面审批后据实报销，无审批不予报销。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "KQ-002",
+    "scenario_id": "enterprise_knowledge_qa",
+    "question": "采购金额超过 50 万走哪个审批链 和一般采购有什么区别",
+    "gold_doc_ids": ["doc-2044"],
+    "gold_answer": "除三家比价外，须增加集团采购委员会评审环节，并由集团分管领导最终审批；一般采购为六个环节，超过 50 万增加评审为第七个环节。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "KQ-003",
+    "scenario_id": "enterprise_knowledge_qa",
+    "question": "今年对差旅住宿标准有没有做过调整",
+    "gold_doc_ids": ["doc-1102"],
+    "gold_answer": "住宿标准自本财年起执行，较上一财年一线城市上调 50 元，二线城市不变。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "KQ-004",
+    "scenario_id": "enterprise_knowledge_qa",
+    "question": "供应商连续两年考核 C 级会有什么后果",
+    "gold_doc_ids": ["doc-2071"],
+    "gold_answer": "将移出供应商名录。",
+    "should_abstain": false
+  },
+  {
+    "case_id": "RG-001",
+    "scenario_id": "report_generation",
+    "question": "按模板写一份经营周报",
+    "gold_doc_ids": ["doc-3001"],
+    "gold_answer": null,
+    "should_abstain": false
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "scenario_id": "enterprise_knowledge_qa",
+  "name": "集团制度与流程知识问答",
+  "industry": "制造",
+  "route_intent": "制度条目之间存在交叉引用与版本关系，问答需跨文档推断",
+  "data_profile": {
+    "corpus_docs": 8600,
+    "doc_avg_tokens": 3200,
+    "update_frequency": "monthly",
+    "requires_fact_accuracy": true,
+    "requires_cross_domain_reasoning": true,
+    "answer_style": "long_reasoned"
+  },
+  "traffic": {
+    "monthly_calls": 42000,
+    "input_tokens_per_call": 400,
+    "output_tokens_per_call": 450,
+    "peak_concurrency": 25
+  },
+  "constraints": {
+    "data_residency": "境内",
+    "budget_sensitivity": "medium"
+  },
+  "assumption_refs": ["A-01", "A-02", "A-05", "A-06"]
+}
