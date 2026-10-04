@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """评估报告生成器：把判定 + 测算 + 评估结果装配成可直接进评审会的报告。
 
-对应 JD「确保各部门对产品理念、目标及细节有充分理解」——
+让各部门对产品理念、目标与细节有充分理解 ——
 报告的首要目标是**让不同角色看懂同一组数字**，因此每个数字都带口径与来源。
 """
 from __future__ import annotations
@@ -133,7 +133,7 @@ def render_report(scenario: dict, decision: dict, sizing: dict, evaluation: dict
 
 def render_prd(scenario: dict, decision: dict, sizing: dict, evaluation: dict,
                roadmap: dict) -> str:
-    """从评估结果装配 PRD 初稿（对应 JD 职责 2「撰写产品设计文档」）。"""
+    """从评估结果装配 PRD 初稿。"""
     L = []
     name = scenario.get("name", scenario["scenario_id"])
     dp = scenario.get("data_profile", {})
@@ -225,7 +225,7 @@ def render_prd(scenario: dict, decision: dict, sizing: dict, evaluation: dict,
 
 
 def build_roadmap(scenario: dict, decision: dict) -> dict:
-    """生成阶段化路线图（对应 JD 职责 1「制定产品发展路线图」）。"""
+    """生成阶段化路线图。"""
     sid = scenario["scenario_id"]
     stages = [
         {"index": 1, "name": "语料就绪与基线", "duration": "2 周",

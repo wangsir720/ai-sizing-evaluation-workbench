@@ -7,7 +7,7 @@
     python -m src.cli --all
     python -m src.cli --selfcheck
 
-`--selfcheck` 输出 PRD 质量评分卡的自评结果 —— 对应 JD「全面负责产品质量」，
+`--selfcheck` 输出 PRD 质量评分卡的自评结果 —— 产品质量得先能自证，
 也是防止「生成了一份自己都不信的工具」的最后一道闸。
 """
 from __future__ import annotations
